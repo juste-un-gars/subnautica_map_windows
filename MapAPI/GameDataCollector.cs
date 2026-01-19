@@ -137,36 +137,60 @@ namespace MapAPI
 
             try
             {
-                // Access PingManager.pings dictionary
-                var pingsField = typeof(PingManager).GetField("pings",
-                    System.Reflection.BindingFlags.NonPublic |
-                    System.Reflection.BindingFlags.Static);
-
-                if (pingsField == null) return beacons;
-
-                var pings = pingsField.GetValue(null) as System.Collections.IDictionary;
-                if (pings == null) return beacons;
-
+                // Find all Beacon objects in the world (player-placed beacons)
+                var beaconObjects = UnityEngine.Object.FindObjectsOfType<Beacon>();
                 int index = 0;
-                foreach (System.Collections.DictionaryEntry entry in pings)
+
+                foreach (var beacon in beaconObjects)
                 {
-                    var pingList = entry.Value as System.Collections.IList;
-                    if (pingList == null) continue;
+                    if (beacon == null) continue;
 
-                    foreach (var ping in pingList)
+                    // Get the label from the beacon
+                    string label = beacon.beaconLabel?.GetLabel() ?? "Beacon";
+
+                    // Get color from the ping instance if available
+                    int colorIndex = 0;
+                    bool visible = true;
+
+                    var pingInstance = beacon.GetComponent<PingInstance>();
+                    if (pingInstance != null)
                     {
-                        var pingInstance = ping as PingInstance;
-                        if (pingInstance == null || pingInstance.origin == null) continue;
-
-                        beacons.Add(new BeaconInfo
-                        {
-                            Id = $"beacon_{index++}",
-                            Label = pingInstance.GetLabel() ?? "Unknown",
-                            Position = new Vector3Info(pingInstance.origin.position),
-                            ColorIndex = pingInstance.colorIndex,
-                            Visible = pingInstance.visible
-                        });
+                        colorIndex = pingInstance.colorIndex;
+                        visible = pingInstance.visible;
                     }
+
+                    beacons.Add(new BeaconInfo
+                    {
+                        Id = $"beacon_{index++}",
+                        Label = label,
+                        Position = new Vector3Info(beacon.transform.position),
+                        ColorIndex = colorIndex,
+                        Visible = visible
+                    });
+                }
+
+                // Also collect Signal pings (story signals, lifepods, etc.)
+                var signalPings = UnityEngine.Object.FindObjectsOfType<PingInstance>();
+                foreach (var ping in signalPings)
+                {
+                    if (ping == null || ping.origin == null) continue;
+
+                    // Skip if it's a beacon (already collected) or vehicle
+                    if (ping.GetComponent<Beacon>() != null) continue;
+                    if (ping.GetComponent<Vehicle>() != null) continue;
+                    if (ping.GetComponent<SubRoot>() != null) continue;
+
+                    // Only include visible signals
+                    if (!ping.visible) continue;
+
+                    beacons.Add(new BeaconInfo
+                    {
+                        Id = $"signal_{index++}",
+                        Label = ping.GetLabel() ?? "Signal",
+                        Position = new Vector3Info(ping.origin.position),
+                        ColorIndex = ping.colorIndex,
+                        Visible = ping.visible
+                    });
                 }
             }
             catch (Exception ex)
