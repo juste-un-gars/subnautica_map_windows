@@ -1,0 +1,12 @@
+E:\SubnauticaMap\MapAPI\obj\Release\net472\MapAPI.csproj.AssemblyReference.cache
+E:\SubnauticaMap\MapAPI\obj\Release\net472\MapAPI.GeneratedMSBuildEditorConfig.editorconfig
+E:\SubnauticaMap\MapAPI\obj\Release\net472\MapAPI.csproj.CoreCompileInputs.cache
+E:\SubnauticaMap\MapAPI\obj\Release\net472\MapAPI.sourcelink.json
+E:\SubnauticaMap\MapAPI\bin\Release\net472\MapAPI.dll
+E:\SubnauticaMap\MapAPI\bin\Release\net472\MapAPI.pdb
+E:\SubnauticaMap\MapAPI\bin\Release\net472\EmbedIO.dll
+E:\SubnauticaMap\MapAPI\bin\Release\net472\System.ValueTuple.dll
+E:\SubnauticaMap\MapAPI\bin\Release\net472\Swan.Lite.dll
+E:\SubnauticaMap\MapAPI\obj\Release\net472\MapAPI.csproj.Up2Date
+E:\SubnauticaMap\MapAPI\obj\Release\net472\MapAPI.dll
+E:\SubnauticaMap\MapAPI\obj\Release\net472\MapAPI.pdb

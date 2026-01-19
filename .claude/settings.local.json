@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet --list-sdks:*)",
+      "Bash(dotnet nuget list:*)",
+      "Bash(dotnet nuget add source:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nSession 001: Add MapAPI mod with working HTTP server\n\n- Complete mod structure with BepInEx plugin\n- EmbedIO HTTP server on port 63030\n- GET /api/ping - health check endpoint\n- GET /api/state - full game state \\(player, vehicles, beacons, time\\)\n- Models: GameState, PlayerInfo, VehicleInfo, BeaconInfo, TimeInfo\n- Tested and working in-game\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}

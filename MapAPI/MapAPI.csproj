@@ -1,0 +1,70 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>MapAPI</AssemblyName>
+    <RootNamespace>MapAPI</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <!-- Subnautica Path -->
+  <PropertyGroup>
+    <SubnauticaPath>D:\STEAM\steamapps\common\Subnautica</SubnauticaPath>
+    <BepInExPath>$(SubnauticaPath)\BepInEx</BepInExPath>
+    <ManagedPath>$(SubnauticaPath)\Subnautica_Data\Managed</ManagedPath>
+  </PropertyGroup>
+
+  <!-- BepInEx References -->
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExPath)\core\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExPath)\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Unity References -->
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedPath)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Subnautica References -->
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedPath)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(ManagedPath)\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- NuGet Packages -->
+  <ItemGroup>
+    <PackageReference Include="EmbedIO" Version="3.5.2" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Post-build: Copy to BepInEx plugins -->
+  <Target Name="CopyToPlugins" AfterTargets="Build">
+    <ItemGroup>
+      <FilesToCopy Include="$(OutputPath)\**\*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(BepInExPath)\plugins\MapAPI" />
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(BepInExPath)\plugins\MapAPI\%(RecursiveDir)" />
+    <Message Importance="High" Text="Copied to $(BepInExPath)\plugins\MapAPI" />
+  </Target>
+
+</Project>

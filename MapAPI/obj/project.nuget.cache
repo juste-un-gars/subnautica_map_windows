@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "JLDU3bBuyv0=",
+  "success": true,
+  "projectFilePath": "E:\\SubnauticaMap\\MapAPI\\MapAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\FRANCK\\.nuget\\packages\\embedio\\3.5.2\\embedio.3.5.2.nupkg.sha512",
+    "C:\\Users\\FRANCK\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "C:\\Users\\FRANCK\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.3\\microsoft.netframework.referenceassemblies.net472.1.0.3.nupkg.sha512",
+    "C:\\Users\\FRANCK\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
+    "C:\\Users\\FRANCK\\.nuget\\packages\\unosquare.swan.lite\\3.1.0\\unosquare.swan.lite.3.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
