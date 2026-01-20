@@ -98,7 +98,23 @@ namespace MapAPI
             if (player == null) return null;
 
             var position = player.transform.position;
-            var heading = player.transform.eulerAngles.y;
+
+            // Use camera rotation for heading (works even at game start)
+            // Falls back to player transform if camera not available
+            float heading = 0f;
+            if (MainCameraControl.main != null)
+            {
+                heading = MainCameraControl.main.transform.eulerAngles.y;
+            }
+            else if (Camera.main != null)
+            {
+                heading = Camera.main.transform.eulerAngles.y;
+            }
+            else
+            {
+                heading = player.transform.eulerAngles.y;
+            }
+
             var depth = Ocean.GetDepthOf(player.gameObject);
 
             string biome = "unknown";
