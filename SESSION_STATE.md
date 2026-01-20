@@ -1,14 +1,14 @@
 # SESSION_STATE.md
 
-**Last Updated:** 2026-01-19
-**Current Session:** SESSION_002_beacon_fix
+**Last Updated:** 2026-01-20
+**Current Session:** SESSION_004_heading_fix
 
 ---
 
 ## Current Status
 
-**Status:** SESSION 002 COMPLÈTE
-**Next Action:** Créer release GitHub v1.0.1 + développer l'app Android
+**Status:** SESSION 004 COMPLÈTE
+**Next Action:** Développer l'app Android companion
 
 ---
 
@@ -19,6 +19,44 @@ Pour reprendre : `"continue"` ou `"let's continue"`
 ---
 
 ## Recent Sessions
+
+### SESSION_004: Heading Fix (2026-01-20)
+**Goal:** Corriger le heading qui retourne 0 au début d'une nouvelle partie
+**Status:** COMPLÈTE
+
+**Problème:** Le heading (direction du joueur) retournait 0 au début d'une nouvelle partie, mais fonctionnait dans une partie avancée.
+
+**Cause:** `player.transform.eulerAngles.y` ne fournit pas la bonne rotation au début du jeu (probablement lié à l'initialisation du joueur dans le lifepod).
+
+**Solution:** Utiliser la rotation de la caméra (`MainCameraControl.main`) au lieu du transform du joueur, avec fallback sur `Camera.main` puis `player.transform`.
+
+**Fichiers modifiés:**
+- `MapAPI/GameDataCollector.cs` (lignes 100-116)
+
+**Commits:**
+- `c417f48` - Session 004: Fix heading returning 0 at game start
+
+**Releases:**
+- v1.0.2: https://github.com/juste-un-gars/subnautica_map_windows/releases/tag/v1.0.2
+
+---
+
+### SESSION_003: README Documentation (2026-01-20)
+**Goal:** Créer un README.md en anglais pour le projet
+**Status:** COMPLÈTE
+
+**Réalisé:**
+- Création de README.md avec documentation complète en anglais
+- Instructions d'installation pour BepInEx
+- Documentation des endpoints API avec exemples JSON
+- Guide de configuration réseau pour accès LAN
+- Section troubleshooting
+- Instructions de build
+
+**Commits:**
+- `18f3ccc` - Add English README with installation and API documentation
+
+---
 
 ### SESSION_002: Beacon Fix (2026-01-19)
 **Goal:** Corriger la collecte des beacons (tableau vide dans l'API)
@@ -36,6 +74,12 @@ Pour reprendre : `"continue"` ou `"let's continue"`
 **Fichiers modifiés:**
 - `MapAPI/GameDataCollector.cs` (lignes 134-202)
 
+**Commits:**
+- `00d1dd1` - Session 002: Fix beacon collection and add API documentation
+
+**Releases:**
+- v1.0.1: https://github.com/juste-un-gars/subnautica_map_windows/releases/tag/v1.0.1
+
 ---
 
 ### SESSION_001: Project Setup (2025-01-19)
@@ -52,18 +96,8 @@ Pour reprendre : `"continue"` ou `"let's continue"`
 - [x] GameDataCollector.cs (collecte données jeu)
 - [x] HttpServer/MapHttpServer.cs (serveur EmbedIO)
 - [x] HttpServer/ApiController.cs (endpoints API)
-
-**Completed:**
-- [x] Installer .NET SDK (10.0.101)
-- [x] Compiler le projet (`dotnet build -c Release`)
 - [x] Tester dans Subnautica (SUCCÈS - ping et state fonctionnels)
-- [x] Commit des fichiers créés (0b13751)
-- [x] Créer zip release (`release/MapAPI_v1.0.0.zip`)
-- [x] Créer CONNECTION.md (doc pour app Android)
-
-**À faire (utilisateur):**
-- [ ] Créer release GitHub v1.0.0 avec le zip
-- [ ] Commit CONNECTION.md
+- [x] Release v1.0.0 créée
 
 ---
 
@@ -74,9 +108,11 @@ E:\SubnauticaMap\
 ├── CLAUDE.md
 ├── PROJET.md
 ├── SESSION_STATE.md
+├── README.md              # Documentation en anglais (GitHub)
 ├── CONNECTION.md          # Doc API pour app Android
 ├── release/
-│   └── MapAPI_v1.0.0.zip  # Release prête pour GitHub
+│   ├── MapAPI_v1.0.0.zip
+│   └── MapAPI_v1.0.1.zip  # Latest
 └── MapAPI/
     ├── MapAPI.csproj
     ├── Plugin.cs
@@ -110,10 +146,9 @@ E:\SubnauticaMap\
 
 ---
 
-## Next Steps (Next Session)
+## Next Steps (Prochaine Session)
 
-1. Vérifier que `dotnet --version` fonctionne
-2. `cd E:\SubnauticaMap\MapAPI && dotnet build -c Release`
-3. Le build copiera automatiquement vers `BepInEx\plugins\MapAPI\`
-4. Lancer Subnautica et tester `http://localhost:63030/api/ping`
-5. Commit et push des fichiers
+1. Développer l'app Android companion
+2. Intégrer la carte de Subnautica
+3. Afficher la position du joueur en temps réel
+4. Afficher les beacons sur la carte
